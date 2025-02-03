@@ -1,0 +1,62 @@
+#progress_list{
+    display:flex;
+    width: 50%;
+    height: 100%;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    justify-self: center;
+    align-items: center;
+    padding-top: 2.6em;
+}
+
+#progress_list div{
+    width:min-content;
+    height: min-content;
+    margin: .5em;
+    border:.01em solid black;
+    padding:1em;
+    border-radius:.5em;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.complete{
+    background:red;
+}
+#progress_bar{
+    width:100%;
+    position:fixed;
+    top:0;
+    background:white;
+    box-sizing: border-box;
+
+
+
+
+}
+#progress_bar div{
+    display:flex;
+    justify-content: center;
+    width:0px;
+    background:red;
+    padding: .2em;
+ 
+}
+
+#settings_menu{
+    position:fixed;
+    top:5em;
+    left:1em;
+    background:red;
+    padding:2em;
+    border-radius: 1em;
+}
+
+
+@media (width <= 800px) {
+  #progress_list{
+    width: 90%;
+
+  }
+  }
