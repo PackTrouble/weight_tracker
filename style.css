@@ -1,13 +1,13 @@
 #progress_list{
     display:flex;
     width: 50%;
-    height: 100%;
+    height: 100dvh;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
     justify-self: center;
     align-items: center;
-    padding-top: 2.6em;
+    padding: 4em 0 2em 0;
 }
 
 #progress_list div{

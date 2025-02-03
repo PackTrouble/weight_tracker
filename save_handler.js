@@ -621,6 +621,7 @@ const default_settings = {
     secondary_color_value:"#000000",
     font_color_value:"#000000",
 }
+
 async function get_data(){
     let data = JSON.parse(localStorage.getItem("weight_progress_tracker"))
 
@@ -649,9 +650,10 @@ function set_config(data){
 }
 
 
+
 export default {
     get_data,
     set_data,
     get_config,
-    set_config
+    set_config,
 }

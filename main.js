@@ -1,111 +1,44 @@
 import "./style.css";
 import save_handler from "./save_handler";
+import bmi_calculator from "./pages/bmi_calculator";
+import weight_tracker from "./pages/weight_tracker";
 
 window.toggle_weight_complete = toggle_weight_complete;
+window.change_menu_state =  change_menu_state;
 
-let data;
-let settings_data;
-save_handler.get_data().then((res) => {
-  if(res.sucess != false){
-    data = res;
+let menu_state = "WEIGHT_TRACKER"
 
+async function app(){
+  switch(menu_state){
+    case "WEIGHT_TRACKER":
+      weight_tracker.build_ui().then(()=>{
+        generate_menu_bar()
+
+      });
+      break;
+      case "BMI_CALCULATOR":
+        bmi_calculator.build_ui() ; 
+          generate_menu_bar();
+        break;
+    default:
+      break;
   }
-  save_handler.get_config().then((res)=>{
-    if(res.sucess != false){
-      settings_data = res
-      build_ui();
-  
-    }
-  
-  });
-})
 
 
-function generate_weight_list() {
-  let html = `<div id="progress_list">`;
-  data.map((e, i) => {
-    if (e.accepted == true) {
-      html += `<div id="weight_progress_button_${i}" onclick="toggle_weight_complete(${i})" style="background:${settings_data.secondary_color_value};color:${settings_data.font_color_value};" class="complete">${e.weight}</div>`;
-    } else {
-      html += `<div id="weight_progress_button_${i}" onclick="toggle_weight_complete(${i})" style="color:${settings_data.font_color_value};">${e.weight}</div>`;
-    }
-  });
-  html += "</div>";
-  return html;
 }
 
-function toggle_weight_complete(index) {
-  document
-    .getElementById(`weight_progress_button_${index}`)
-    .classList.toggle("complete");
-  data[index].accepted = !data[index].accepted;
-  save_handler.set_data(data);
-  build_ui()
-}
-function generate_progress_bar() {
-  let counter = 0;
-  data.map((e, i) => {
-    if (e.accepted == true) {
-      counter++;
-    }
-  });
-
-  let html = `<div id="progress_bar">`;
-  html += `<div style=" width:${(counter/data.length)*100}%; background:${settings_data.secondary_color_value};"><p style="color:${settings_data.font_color_value}">${counter}🔻: ${Math.floor((counter/data.length)*100)}%</p></div>`;
-  html += "</div>";
-  return html;
-}
-
-function generate_settings(){
-
-  let html =`<div id="settings_menu" style="background:${settings_data.secondary_color_value}; color:${settings_data.font_color_value};">
-  <form id="settings_menu_form" >
-  <h1>settings</h1>
-  <h2>color</h2>
-  <div>
-  <p>Primary</p>
-  <input type="color" value="${settings_data.primary_color_value}"/>
-  </div>
-   <div>
-  <p>Secondary</p>
-  <input type="color" value="${settings_data.secondary_color_value}"/>
-<p>Font</p>
-  <input type="color" value="${settings_data.font_color_value}"/>
-
-  </div>
-  <button type="submit ">save</button>
-  </form>
-
-  
-  </div>`
-  return html;
+function generate_menu_bar(){
+  let menu = document.createElement("div")
+  menu.id = "menu_selector"
+  menu.innerHTML = `<div onclick="change_menu_state('WEIGHT_TRACKER')">weight</div><div onclick="change_menu_state('BMI_CALCULATOR')">bmi</div>`
+  document.getElementById('app').append(menu);
 }
 
 
-function build_ui() {
-  document.querySelector("#app").innerHTML = `
-
-  ${generate_progress_bar()}
-  ${generate_weight_list()}
-  ${generate_settings()}
- 
-    
-
-`;
-
-document.getElementById('app').style.background = settings_data.primary_color_value;
-
-
-
-document.getElementById('settings_menu_form').addEventListener('submit',(ev)=>{
-  ev.preventDefault()
-  settings_data.primary_color_value = ev.target[0].value
-  settings_data.secondary_color_value = ev.target[1].value
-  settings_data.font_color_value = ev.target[2].value
-
-  save_handler.set_config(settings_data)
-  build_ui()
-
-});
-
+function change_menu_state(changed_menu_state){
+menu_state = changed_menu_state
+app()
 }
+
+
+app();
