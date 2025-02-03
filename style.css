@@ -1,3 +1,8 @@
+body{
+    padding:0;
+    margin:0;
+
+}
 #progress_list{
     display:flex;
     width: 50%;
@@ -45,12 +50,50 @@
 }
 
 #settings_menu{
+
+    padding:2em;
+    border-radius: 1em;
+}
+#side-bar{
     position:fixed;
     top:5em;
     left:1em;
-    background:red;
-    padding:2em;
+    display:flex;
+    flex-direction: column;
+    gap :1em;
+}
+
+#side-bar div{
+    padding:1.5em;
     border-radius: 1em;
+}
+
+#bmi_report{
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#menu_selector{
+    position:fixed;
+    top:5em;
+    right:1em;
+    width:15em;
+
+}
+#menu_selector_apps{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+#menu_selector #apps{
+    
+    border-radius: 15px;
+    background:red;
+    padding:1em;
+   
+
 }
 
 

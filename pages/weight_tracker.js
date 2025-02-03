@@ -1,4 +1,5 @@
 import save_handler from "../save_handler";
+import bmi_calculator from "./bmi_calculator";
 window.toggle_weight_complete = toggle_weight_complete;
 let data, settings_data;
 
@@ -43,6 +44,7 @@ function generate_settings() {
   let html = `  <div id="settings_menu" style="background:${settings_data.secondary_color_value}; color:${settings_data.font_color_value};">
                     <form id="settings_menu_form" >
                         <h1>settings</h1>
+                        <div style="display:none">
                         <h2>color</h2>
                             <div>
                                 <p>Primary</p>
@@ -56,9 +58,22 @@ function generate_settings() {
                         
                             </div>
                         <button type="submit ">save</button>
+                        </div>
                     </form>
                 </div>`;
   return html;
+}
+function generate_bmi_report(){
+    let current_weight;
+    for (let i = 0; i < data.length; i++) {
+        let e = data[i].accepted
+        if(e == false){
+            current_weight=data[i].weight;
+            break;
+        }
+    }
+    let html = `<div id="bmi_report" style="background:${settings_data.secondary_color_value};color:${settings_data.font_color_value};"><h1>starting bmi</h1><h2>${bmi_calculator.calculate_BMI(data[0].weight,72,26).toFixed(2)}</h2><h1>bmi</h1><h2>${bmi_calculator.calculate_BMI(current_weight,72,26).toFixed(2)}</h2></div>`
+    return html
 }
 async function build_ui() {
   await save_handler.get_data().then((res) => {
@@ -71,8 +86,10 @@ async function build_ui() {
         document.querySelector("#app").innerHTML = `
             ${generate_progress_bar()}
             ${generate_weight_list()}
-            ${generate_settings()}
-        `;
+            <div id="side-bar">
+            ${generate_bmi_report()}
+            </div>
+            `;
 
         document.getElementById("app").style.background =
           settings_data.primary_color_value;
