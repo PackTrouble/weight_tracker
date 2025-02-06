@@ -1,5 +1,7 @@
 function build_ui(){
-document.getElementById('app').innerHTML = `<div><h1>BMI CALC </h1>
+document.getElementById('app').innerHTML = `<div id="ui_wrapper">
+
+<h1>BMI CALC </h1>
 
 <form>
 <label>weight</label>

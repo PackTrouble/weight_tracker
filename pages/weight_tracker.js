@@ -1,5 +1,6 @@
 import save_handler from "../save_handler";
 import bmi_calculator from "./bmi_calculator";
+import bmr_calculator from "./bmr_calculator";
 window.toggle_weight_complete = toggle_weight_complete;
 let data, settings_data;
 
@@ -21,7 +22,7 @@ function toggle_weight_complete(index) {
     .classList.toggle("complete");
   data[index].accepted = !data[index].accepted;
   save_handler.set_data(data);
-  build_ui();
+  refresh_ui();
 }
 function generate_progress_bar() {
   let counter = 0;
@@ -40,29 +41,6 @@ function generate_progress_bar() {
   html += "</div>";
   return html;
 }
-function generate_settings() {
-  let html = `  <div id="settings_menu" style="background:${settings_data.secondary_color_value}; color:${settings_data.font_color_value};">
-                    <form id="settings_menu_form" >
-                        <h1>settings</h1>
-                        <div style="display:none">
-                        <h2>color</h2>
-                            <div>
-                                <p>Primary</p>
-                                <input type="color" value="${settings_data.primary_color_value}"/>
-                            </div>
-                            <div>
-                                <p>Secondary</p>
-                                <input type="color" value="${settings_data.secondary_color_value}"/>
-                                <p>Font</p>
-                            <input type="color" value="${settings_data.font_color_value}"/>
-                        
-                            </div>
-                        <button type="submit ">save</button>
-                        </div>
-                    </form>
-                </div>`;
-  return html;
-}
 function generate_bmi_report(){
     let current_weight;
     for (let i = 0; i < data.length; i++) {
@@ -75,6 +53,18 @@ function generate_bmi_report(){
     let html = `<div id="bmi_report" style="background:${settings_data.secondary_color_value};color:${settings_data.font_color_value};"><h1>starting bmi</h1><h2>${bmi_calculator.calculate_BMI(data[0].weight,72,26).toFixed(2)}</h2><h1>bmi</h1><h2>${bmi_calculator.calculate_BMI(current_weight,72,26).toFixed(2)}</h2></div>`
     return html
 }
+function generate_bmr_report(){
+  let current_weight;
+  for (let i = 0; i < data.length; i++) {
+      let e = data[i].accepted
+      if(e == false){
+          current_weight=data[i].weight;
+          break;
+      }
+  }
+  let html = `<div id="bmi_report" style="background:${settings_data.secondary_color_value};color:${settings_data.font_color_value};"><h1>starting bmr</h1><h2>${bmr_calculator.calculate_BMR(data[0].weight,72,26,"MALE").toFixed(2)}</h2><h1>bmr</h1><h2>${bmr_calculator.calculate_BMR(current_weight,72,26,"MALE").toFixed(2)}</h2></div>`
+  return html
+}
 async function build_ui() {
   await save_handler.get_data().then((res) => {
     if (res.sucess != false) {
@@ -84,31 +74,36 @@ async function build_ui() {
       if (res.sucess != false) {
         settings_data = res;
         document.querySelector("#app").innerHTML = `
+          <div id="ui_wrapper">
             ${generate_progress_bar()}
             ${generate_weight_list()}
             <div id="side-bar">
             ${generate_bmi_report()}
+            ${generate_bmr_report()}
+
+            </div>
             </div>
             `;
 
         document.getElementById("app").style.background =
           settings_data.primary_color_value;
 
-        document
-          .getElementById("settings_menu_form")
-          .addEventListener("submit", (ev) => {
-            ev.preventDefault();
-            settings_data.primary_color_value = ev.target[0].value;
-            settings_data.secondary_color_value = ev.target[1].value;
-            settings_data.font_color_value = ev.target[2].value;
-            save_handler.set_config(settings_data);
-            build_ui();
-          });
       }
 
   
     });
   });
+}
+
+function refresh_ui(){
+ document.getElementById('ui_wrapper').innerHTML = `
+       ${generate_progress_bar()}
+            ${generate_weight_list()}
+            <div id="side-bar">
+            ${generate_bmi_report()}
+            ${generate_bmr_report()}
+            </div>`;
+ 
 }
 
 export default {
