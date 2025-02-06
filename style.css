@@ -48,12 +48,6 @@ body{
     padding: .2em;
  
 }
-
-#settings_menu{
-
-    padding:2em;
-    border-radius: 1em;
-}
 #side-bar{
     position:fixed;
     top:5em;
@@ -95,7 +89,38 @@ body{
    
 
 }
+#settings_menu{
+    display:flex;
+    gap:5em;
+}
+.settings_menu_active_option{
+    background:red;
+    border-radius: 1em;
+    
 
+}
+#settings_menu_switcher{
+
+    
+}
+#settings_menu_switcher ul{
+
+    
+}
+
+
+#settings_menu_switcher ul li{
+    list-style: none;
+    padding:.1em 2em;
+    user-select: none;
+    -webkit-user-select: none;
+
+
+}
+#settings_menu_form{
+    padding:5em;
+
+}
 
 @media (width <= 800px) {
   #progress_list{

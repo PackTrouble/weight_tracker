@@ -8,7 +8,7 @@ import bmr_calculator from "./pages/bmr_calculator";
 window.toggle_weight_complete = toggle_weight_complete;
 window.change_menu_state = change_menu_state;
 
-let menu_state = "WEIGHT_TRACKER";
+let menu_state = "SETTINGS";
 let data,settings_data;
 
 
