@@ -4,6 +4,7 @@ import bmi_calculator from "./pages/bmi_calculator";
 import weight_tracker from "./pages/weight_tracker";
 import settings from "./pages/settings";
 import bmr_calculator from "./pages/bmr_calculator";
+import setup from "./pages/setup";
 
 window.toggle_weight_complete = toggle_weight_complete;
 window.change_menu_state = change_menu_state;
@@ -15,6 +16,12 @@ let data,settings_data;
 async function app() {
   data = await save_handler.get_data()
   settings_data = await save_handler.get_config()
+
+  if(data.success == false){
+    setup.build_ui()
+    
+    return
+  }
 
   switch (menu_state) {
     case "WEIGHT_TRACKER":

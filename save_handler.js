@@ -626,7 +626,7 @@ async function get_data(){
     let data = JSON.parse(localStorage.getItem("weight_progress_tracker"))
 
     if(data == undefined){
-        localStorage.setItem("weight_progress_tracker", JSON.stringify(default_data))
+        // localStorage.setItem("weight_progress_tracker", JSON.stringify(default_data))
         return {success:false, message:"Error: No Data - Initalizing default settings"}
     }
     return data;

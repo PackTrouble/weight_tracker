@@ -2,8 +2,9 @@ import save_handler from "../save_handler";
 let data,settings_data;
 async function build_ui() {
   await save_handler.get_data().then((res) => {
-    if (res.sucess != false) {
+    if (res.success != false) {
       data = res;
+    }else{
     }
     save_handler.get_config().then((res) => {
       if (res.sucess != false) {
