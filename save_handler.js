@@ -649,6 +649,26 @@ function set_config(data){
 
 }
 
+async function initalize_setup_data(data){
+    let weight_data=[];
+console.log(data)
+    for (let i = 0; i < data.weight; i++) {
+        if(data.weight - i >= data.goal_weight){
+      }
+      weight_data.push( {
+        "weight": data.weight - i,
+        "accepted": false
+    })
+        
+    }
+
+    // localStorage.setItem("weight_progress_tracker", JSON.stringify(weight_data))
+    console.log(JSON.stringify(weight_data))
+    return true
+
+
+}
+
 
 
 export default {
@@ -656,4 +676,5 @@ export default {
     set_data,
     get_config,
     set_config,
+    initalize_setup_data
 }

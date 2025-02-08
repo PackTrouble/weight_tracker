@@ -1,87 +1,154 @@
 import "./../style/setup.css";
+import main from './../main'
+import save_handler from "../save_handler";
 
-let setup_order = 0;
-let setup_steps = 3;
-let weight,age,height;
+let setup_order = 1;
+let setup_steps = 4;
+let weight, age, height;
 
 let setup_html = `   <div id="setup_wrapper">  
         <form class="setup_user_form">
-            <div hidden class="setup_menu_item" id="setup_order_0">
+          <div hidden class="setup_menu_item">
+                <h1>Weight Loss tracker</h1>
+                <p>Welcome to the beginning of a new journey
+            </div>
+            <div hidden class="setup_menu_item">
                 <h1>setup</h1>
                 <input type="text" id="weight_input" placeholder="weight_input" />
             </div>
-            <div hidden class="setup_menu_item" id="setup_order_1">
+            <div hidden class="setup_menu_item" >
                 <h1>setup</h1>
 
                 <input type="text" id="age_input" placeholder="age_input" />
             </div>
-            <div hidden class="setup_menu_item" id="setup_order_2">
+            <div hidden class="setup_menu_item" >
                 <h1>setup</h1>
 
                 <input type="text" id="height_input" placeholder="height_input" />
             </div>
-             <div hidden class="setup_menu_item" id="setup_order_3">
+             <div hidden class="setup_menu_item">
                 <h1>setup</h1>
 
                 <input type="text" id="goal_input" placeholder="goals_input" />
             </div>
-            
-            <button type="submit">next</button>
+
+            <div id="form_action_options">
+                <div class="button" id="prev_option_button" hidden>Back</div>
+                <button class="button" type="submit" id="setup_form_submit_button">next</button>
+
+            </div>
+          
                 
         </form>
     </div>`;
 
 function build_ui() {
   document.getElementById("app").innerHTML = setup_html;
-  
+
   document
-    .getElementById(`setup_order_${setup_order}`)
+    .querySelector(".setup_user_form")
+    .querySelector(`div:nth-child(${setup_order})`)
     .attributes.removeNamedItem("hidden");
-    
+
   document
     .querySelector(".setup_user_form")
     .addEventListener("submit", (ev) => {
       ev.preventDefault();
-      console.log("rand")
-      if(setup_order == setup_steps){
-  
-         weight = ev.target[0].value;
-         age = ev.target[1].value;
-         height = ev.target[2].value;
-        console.log("🚀 ~ document.getElementById ~ weight:", weight)
-        console.log("🚀 ~ document.getElementById ~ age:", age)
-        console.log("🚀 ~ document.getElementById ~ height:", height)
-    }
+      next_panel();
     });
-    setup_order++;
-    next_panel();
-
-
+  document
+    .getElementById("prev_option_button")
+    .addEventListener("click", () => {
+      prev_panel();
+    });
 }
 
 function next_panel() {
+  setup_order++;
+
   document.getElementById("app").innerHTML = setup_html;
   document
-    .getElementById(`setup_order_${setup_order}`)
+    .querySelector(".setup_user_form")
+    .querySelector(`div:nth-child(${setup_order})`)
     .attributes.removeNamedItem("hidden");
+
   document
     .querySelector(".setup_user_form")
     .addEventListener("submit", (ev) => {
       ev.preventDefault();
-       weight = ev.target[0].value;
-       age = ev.target[1].value;
-       height = ev.target[2].value;
-      setup_order++;
+        console.log(ev.target)
+      if (setup_order > setup_steps) {
+        save_handler.initalize_setup_data({
+            weight:ev.target[0].value,
+            age:ev.target[1].value,
+            height:ev.target[2].value,
+            goal_weight:ev.target[3].value})
+        main.app()
+      }
 
-      if(setup_order <= setup_steps){
-          next_panel();
-  
-      }else{
-  
+      if (setup_order <= setup_steps - 1) {
+        next_panel();
+      } else {
+        next_panel();
+        document.getElementById("setup_form_submit_button").innerText = "save";
       }
     });
+  if (!setup_order <= 1) {
+    document
+      .getElementById("prev_option_button")
+      .attributes.removeNamedItem("hidden");
+    document
+      .getElementById("prev_option_button")
+      .addEventListener("click", () => {
+        if (setup_order > setup_steps) {
+          prev_panel();
+        } else {
+          prev_panel();
+          document.getElementById("setup_form_submit_button").innerText =
+            "save";
+        }
 
+      });
+  }
+}
+function prev_panel() {
+  setup_order--;
 
+  document.getElementById("app").innerHTML = setup_html;
+  document
+    .querySelector(".setup_user_form")
+    .querySelector(`div:nth-child(${setup_order})`)
+    .attributes.removeNamedItem("hidden");
+
+    if (!setup_order <= 1) {
+        document
+          .getElementById("prev_option_button")
+          .attributes.removeNamedItem("hidden");
+        document
+          .getElementById("prev_option_button")
+          .addEventListener("click", () => {
+            if (setup_order > setup_steps) {
+              prev_panel();
+            } else {
+              prev_panel();
+              document.getElementById("setup_form_submit_button").innerText =
+                "save";
+            }
+    
+          });
+      }
+
+  document
+    .getElementById("prev_option_button")
+    .addEventListener("click", () => {
+      if (setup_order > setup_steps) {
+        prev_panel();
+      } else {
+        prev_panel();
+        document.getElementById("setup_form_submit_button").innerText = "save";
+      }
+
+    });
 }
 export default {
   build_ui,

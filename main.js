@@ -17,6 +17,7 @@ async function app() {
   data = await save_handler.get_data()
   settings_data = await save_handler.get_config()
 
+  console.log(data)
   if(data.success == false){
     setup.build_ui()
     
@@ -68,3 +69,8 @@ function change_menu_state(changed_menu_state) {
 }
 
 app();
+
+
+export default {
+  app
+}
