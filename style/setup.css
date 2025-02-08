@@ -1,34 +1,22 @@
-.setup_user_form{
+button{
+    background:red;
+    border:  0;
+    border-radius: 15px;
+    padding:1em;
+}
+
+.wrapper{
     display:flex;
     flex-direction: column;
-    gap:1em;
     justify-content: center;
     align-items: center;
+    margin:0 auto;
+    width:80%;
     height:100%;
-}
-#setup_wrapper{
-    height: 100dvh;
+    gap:1em;
 }
 
-.setup_menu_item{
-
-
-}
-
-.button{
-    background:black;
-    padding:1em;
-    border-radius: 25px;
-     color:white;
-     width:100px;
-     user-select: none;
-     -webkit-user-select: none;
-}
-
-#form_action_options{
-    display:flex;
-    flex-direction: row;
-    padding:3em;
-    width:25%;
-    justify-content: space-evenly;
+#app{
+    height:100dvh;
+    width:100dvw;
 }

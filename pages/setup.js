@@ -12,11 +12,13 @@ function build_panel() {
   switch (setup_item) {
     case 1:
       document.getElementById("app").innerHTML = `
-      <div>
-        <input type="text" id="weight_input" placeholder="Weight" value="${weight!=undefined?weight:""}" />
-        <button id="next">Next</button>
-        <button id="prev">Back</button>
-      </div>
+        <div class="wrapper">
+          <input type="text" id="weight_input" placeholder="Weight" value="${weight!=undefined?weight:""}" />
+          <div id="button_actions">
+            <button id="prev">Back</button>
+            <button id="next">Next</button>
+          </div>
+        </div>
       `;
       document.getElementById("next").addEventListener("click", () => {
         setup_item++;
@@ -30,10 +32,15 @@ function build_panel() {
       break;
     case 2:
       document.getElementById("app").innerHTML = `
-        <div>
+              <div class="wrapper">
+
           <input type="text" id="age_input" placeholder="Age" value="${age!=undefined?age:""}"/>
-          <button id="next">Next</button>
-          <button id="prev">Back</button>
+          <div id="button_actions">
+
+            <button id="prev">Back</button>
+            <button id="next">Next</button>
+
+            </div>
         </div>
         `;
       document.getElementById("next").addEventListener("click", () => {
@@ -49,10 +56,15 @@ function build_panel() {
 
     case 3:
       document.getElementById("app").innerHTML = `
-          <div>
+           <div class="wrapper">
+
             <input type="text" id="height_input" placeholder="Height" value="${height!=undefined?height:""}" />
-            <button id="next">Next</button>
+            <div id="button_actions">
             <button id="prev">Back</button>
+
+            <button id="next">Next</button>
+            </div>
+            
           </div>
           `;
       document.getElementById("next").addEventListener("click", () => {
@@ -67,10 +79,14 @@ function build_panel() {
       break;
     case 4:
       document.getElementById("app").innerHTML = `
-            <div>
+              <div class="wrapper">
+
               <input type="text" id="goal_weight_input" placeholder="Goal Weight" value="${goal_weight!=undefined?goal_weight:""}" />
-              <button id="next">Save</button>
-              <button id="prev">Back</button>
+               <div id="button_actions">
+            <button id="prev">Back</button>
+
+            <button id="next">Save</button>
+            </div>
             </div>
             `;
       document.getElementById("next").addEventListener("click", () => {
@@ -86,8 +102,9 @@ function build_panel() {
     default:
       setup_item = 0;
       document.getElementById("app").innerHTML = `
-      <div>
-      <h1> Welcome to the weight tracker</h1>
+          <div class="wrapper">
+
+      <h1> Welcome to the weight tracker. Let us fill out a few questions. So that you can get to what you do best.</h1>
       <button id="next">Next</button>
       </div>
       `;
