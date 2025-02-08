@@ -9,7 +9,7 @@ import setup from "./pages/setup";
 window.toggle_weight_complete = toggle_weight_complete;
 window.change_menu_state = change_menu_state;
 
-let menu_state = "SETTINGS";
+let menu_state = "WEIGHT_TRACKER";
 let data,settings_data;
 
 
