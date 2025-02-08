@@ -662,7 +662,7 @@ console.log(data)
         
     }
 
-    // localStorage.setItem("weight_progress_tracker", JSON.stringify(weight_data))
+     localStorage.setItem("weight_progress_tracker", JSON.stringify(weight_data))
     console.log(JSON.stringify(weight_data))
     return true
 

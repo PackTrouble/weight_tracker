@@ -4,7 +4,7 @@ import save_handler from "../save_handler";
 
 let setup_order = 1;
 let setup_steps = 4;
-let weight, age, height;
+let weight, age, height,goal_weight;
 
 let setup_html = `   <div id="setup_wrapper">  
         <form class="setup_user_form">
@@ -77,12 +77,28 @@ function next_panel() {
     .addEventListener("submit", (ev) => {
       ev.preventDefault();
         console.log(ev.target)
+        if(ev.target[0].value != ""){
+          weight = ev.target[0].value
+        }
+        if(ev.target[1].value != ""){
+          age = ev.target[0].value
+
+        }
+        if(ev.target[2].value != ""){
+          height = ev.target[0].value
+
+        }
+        if(ev.target[3].value != ""){
+          goal_weight = ev.target[0].value
+
+        }
+
       if (setup_order > setup_steps) {
         save_handler.initalize_setup_data({
-            weight:ev.target[0].value,
-            age:ev.target[1].value,
-            height:ev.target[2].value,
-            goal_weight:ev.target[3].value})
+            weight:weight,
+            age:age,
+            height:height,
+            goal_weight:goal_weight})
         main.app()
       }
 
