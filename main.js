@@ -20,18 +20,23 @@ async function app() {
   try{
   const result = await fetch("http://192.168.0.100:3001/")
   const response = await result.json()
-
+    if(JSON.stringify(response.userdata) == '{}'){
+      throw new Error("response empty")
+    }
   if (response.success != false) {
     data = response.userdata
     settings_data = response.userconfig
     save_handler.set_data(response.userdata)
     save_handler.set_config(response.userconfig)
   }
+  
 
-}catch(e){console.log(e)
+}catch(e){
+  
+  console.log(e)
   data = await save_handler.get_data()
   settings_data = await save_handler.get_config()
-  if (data.success == false) {
+  if (data.success == false  || JSON.stringify(data) == '{}') {
     setup.build_ui()
   } 
   }
