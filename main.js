@@ -25,9 +25,9 @@ async function app() {
     }
   if (response.success != false) {
     data = response.userdata
-    settings_data = response.userconfig
+    settings_data = response.config
     save_handler.set_data(response.userdata)
-    save_handler.set_config(response.userconfig)
+    save_handler.set_config(response.config)
   }
   
 
