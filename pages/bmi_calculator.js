@@ -1,14 +1,16 @@
-function build_ui(){
-document.getElementById('app').innerHTML = `<div id="ui_wrapper">
+import save_handler from "../utils/save_handler";
 
-<h1>BMI CALC </h1>
 
-<form>
-<label>weight</label>
+function build_ui(el,ud,uc){
+el.innerHTML = `<div id="ui_wrapper">
+                    <h1>BMI </h1>
+                    <form>
+                        <input type="text" id="weight" value="${ud.highest_weight}" /> 
+                        <input type="text" id="age" value="${ud.age}" />   
+                        <input type="text" id="height" value="${ud.height}" />   
 
-</form>
-
-</div>`;
+                    </form>
+                </div>`;
 
 }
 

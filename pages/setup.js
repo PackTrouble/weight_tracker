@@ -1,6 +1,6 @@
 import "./../style/setup.css";
 import main from "./../main";
-import save_handler from "../save_handler";
+import save_handler from "../utils/save_handler";
 let weight, age, height, goal_weight;
 let setup_item = 0;
 

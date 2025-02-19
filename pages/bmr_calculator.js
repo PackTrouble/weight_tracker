@@ -1,16 +1,16 @@
 let user_unit_preference = "IMPERIAL";
-function build_ui() {
+async function build_ui(el,ud,uc) {
+  
   switch (user_unit_preference) {
     case "IMPERIAL":
-      document.getElementById("app").innerHTML = `
+     el.innerHTML = `
     <div id="ui_wrapper">
-        <h1>BMR Calculator</h1>
-        <p>standard<p>
+        <h1>BMR</h1>
+        <div style ="display:flex;align-items:center;gap:1em;">   <p style="background:red;border-radius:25px; padding:.75em;">Standard<p><p>Metric<p> </div>
         <form id="bmr_form_submit">
-            <input type="number" name="user_weight_in_pounds" placeholder="weight in pounds"/>
-            <input type="number" name="user_height_in_inches" placeholder="height in inches"/>
-            <input type="number" name="user_age" placeholder="age"/>
-
+            <input type="number" name="user_weight_in_pounds" placeholder="weight in pounds" value="${ud.highest_weight}"/>
+            <input type="number" name="user_height_in_inches" placeholder="height in inches" value="${ud.age}"/>
+            <input type="number" name="user_age" placeholder="age" value="${ud.height}"/>
             <button type="submit" /> sumbit </button>
         </form>
     </div>
@@ -25,21 +25,21 @@ function build_ui() {
 
       break;
     case "METRIC":
-      document.getElementById("app").innerHTML = `
+      el.innerHTML = `
      <div id="ui_wrapper">
 
         <h1>BMR Calculator</h1>
         <p>metric</p>
         <form id="bmr_form_submit">
 
-            <input type="number" name="user_weight_in_kg" placeholder="weight in kg"/>
-            <input type="number" name="user_height_in_cm" placeholder="height in cm"/>
-            <input type="number" name="user_age" placeholder="age"/>
+            <input type="number" name="user_weight_in_kg" placeholder="weight in kg" value="${ud.highest_weight}"/>
+            <input type="number" name="user_height_in_cm" placeholder="height in cm" value="${ud.height}"/>
+            <input type="number" name="user_age" placeholder="age" value="${ud.age}"/>
     
             <button type="submit" /> sumbit </button>
         </form>
     </div>
-   
+     
    `;
 
       document
